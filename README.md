@@ -59,6 +59,7 @@ CREATE TABLE exercises (
   tempo TEXT NOT NULL,
   rpe_target TEXT NOT NULL,
   notes TEXT,
+  tutorial_link TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -87,32 +88,32 @@ CREATE TABLE nutrition_logs (
 );
 
 -- Insert workout data from CSV
-INSERT INTO exercises (day, exercise_name, current_weight, reps, sets, rest_between_sets, rest_before_next, weight_increase_rule, tempo, rpe_target, notes) VALUES
-('Monday (Push)', 'Dumbbell Bench Press', '20 lb each', '8-12', 4, '75-90s', '90s', 'When you hit 12 reps on all sets for 2 sessions at RPE ≤8, add 5 lb per dumbbell', '3-1-1', '7-8', 'Warm-up 2 light sets'),
-('Monday (Push)', 'Seated Dumbbell Shoulder Press', '15 lb each', '8-12', 3, '75-90s', '60s', 'Top of range for 2 sessions → +2.5–5 lb each', '2-1-1', '7-8', ''),
-('Monday (Push)', 'High-to-Low Cable Fly', '10 lb per side', '12-15', 3, '60s', '45-60s', 'Top of range twice → next cable increment', '2-1-2', '7', 'Superset with Pushdowns (A)'),
-('Monday (Push)', 'Cable Triceps Rope Pushdown', '15 lb', '12-15', 3, '60s', '60-90s', 'Top of range twice → next increment', '2-0-1', '7', 'Superset with Cable Fly (A)'),
-('Monday (Push)', 'Dumbbell Lateral Raise', '10 lb each', '12-15', 3, '45-60s', '90s', 'Top of range twice → +2.5 lb each', '2-0-1', '7', 'Keep slight bend in elbows'),
-('Tuesday (Pull)', 'Kneeling Cable Lat Pulldown (use bar/rope)', '30 lb total', '8-12', 4, '75-90s', '90s', '12s for 2 sessions → next increment', '2-1-1', '7-8', 'Kneel facing tower; pull to chest'),
-('Tuesday (Pull)', 'One-Arm Dumbbell Row', '25 lb', '10-12 each', 3, '75s', '60s', '12s for 2 sessions → +5 lb', '2-1-1', '7-8', 'Bench support'),
-('Tuesday (Pull)', 'Seated/Low Cable Row (neutral)', '25 lb', '10-12', 3, '75s', '45-60s', 'Top range twice → next increment', '2-1-1', '7-8', 'Superset with Face Pulls (B)'),
-('Tuesday (Pull)', 'Cable Face Pull', '15 lb', '12-15', 3, '45-60s', '60-90s', 'Top range twice → next increment', '2-1-1', '7', 'Superset with Low Row (B)'),
-('Tuesday (Pull)', 'Dumbbell Hammer Curl', '15 lb each', '10-12', 3, '60s', '90s', '12s for 2 sessions → +2.5–5 lb each', '2-0-1', '7', 'Elbows pinned'),
-('Wednesday (Legs)', 'Goblet Squat', '35 lb', '10-12', 4, '75-90s', '90s', '12s for 2 sessions → +5 lb', '3-1-1', '7-8', 'Chest up; full depth you control'),
-('Wednesday (Legs)', 'Dumbbell Romanian Deadlift', '25 lb each', '8-12', 3, '90s', '60s', '12s twice → +5 lb each', '3-1-1', '7-8', 'Hinge; stretch hamstrings'),
-('Wednesday (Legs)', 'Bulgarian Split Squat', '15 lb each', '8-10 per leg', 3, '75-90s', '45-60s', '10s twice → +5 lb each', '3-1-1', '8', 'Superset with Extensions (C)'),
-('Wednesday (Legs)', 'Leg Extension (bench attachment)', '25 lb', '12-15', 3, '45-60s', '45-60s', '15s twice → +5–10 lb', '2-1-1', '7', 'Superset with Leg Curl (D)'),
-('Wednesday (Legs)', 'Leg Curl (bench attachment)', '20 lb', '12-15', 3, '45-60s', '60-90s', '15s twice → +5–10 lb', '2-1-1', '7', 'Superset with Leg Extension (D)'),
-('Wednesday (Legs)', 'Standing Calf Raise (DBs)', '20 lb each', '12-15', 3, '45-60s', '90s', '15s twice → +5 lb each', '2-1-2', '7', 'Pause 1s at top'),
-('Thursday (Upper + Core)', 'Incline Dumbbell Bench', '20 lb each', '8-12', 3, '75s', '60s', '12s twice → +5 lb each', '3-1-1', '7-8', 'Bench at ~30°'),
-('Thursday (Upper + Core)', 'Single-Arm Cable Row (contralateral)', '20 lb', '10-12 each', 3, '60-75s', '45-60s', 'Top range twice → next increment', '2-1-1', '7-8', 'Superset with Lateral Raise (E)'),
-('Thursday (Upper + Core)', 'Dumbbell Lateral Raise', '10 lb each', '12-15', 3, '45-60s', '45-60s', 'Top range twice → +2.5 lb each', '2-0-1', '7', 'Superset with Cable Row (E)'),
-('Thursday (Upper + Core)', 'Cable Woodchopper', '15 lb', '10-12 each side', 3, '45-60s', '45-60s', 'Top range twice → next increment', '2-1-1', '7', 'Rotate through hips'),
-('Thursday (Upper + Core)', 'Plank', 'Bodyweight', '45-60s hold', 3, '45-60s', '90s', 'Add 10s each week up to 90s, then add 10 lb plate on back', '—', '7', 'Keep glutes/abs tight'),
-('Friday (Full-Body/Metabolic)', 'Dumbbell Thruster (squat to press)', '20 lb each', '8-12', 4, '60s', '60s', '12s twice → +2.5–5 lb each', '2-0-1', '8', 'Full-body power'),
-('Friday (Full-Body/Metabolic)', 'Renegade Row (push-up position)', '15 lb each', '6-8 per arm', 3, '60-75s', '60s', '8s twice → +2.5 lb each', '2-1-1', '8', 'Hips square'),
-('Friday (Full-Body/Metabolic)', 'Kneeling Cable Lat Pulldown', '30 lb', '10-12', 3, '60-75s', '45-60s', 'Top range twice → next increment', '2-1-1', '7-8', ''),
-('Friday (Full-Body/Metabolic)', 'Farmer''s Carry', '25 lb each', '40-60 meters', 5, '45-60s', '—', 'When 5 trips feel easy with solid posture, +5 lb each', '—', '8', 'Tall posture; tight core finisher');
+INSERT INTO exercises (day, exercise_name, current_weight, reps, sets, rest_between_sets, rest_before_next, weight_increase_rule, tempo, rpe_target, notes, tutorial_link) VALUES
+('Monday (Push)', 'Dumbbell Bench Press', '20 lb each', '8-12', 4, '75-90s', '90s', 'When you hit 12 reps on all sets for 2 sessions at RPE ≤8, add 5 lb per dumbbell', '3-1-1', '7-8', 'Warm-up 2 light sets', 'https://www.youtube.com/watch?v=SHsUIZiNdeY'),
+('Monday (Push)', 'Seated Dumbbell Shoulder Press', '15 lb each', '8-12', 3, '75-90s', '60s', 'Top of range for 2 sessions → +2.5–5 lb each', '2-1-1', '7-8', '', 'https://www.youtube.com/watch?v=GFblCmuEE18'),
+('Monday (Push)', 'High-to-Low Cable Fly', '10 lb per side', '12-15', 3, '60s', '45-60s', 'Top of range twice → next cable increment', '2-1-2', '7', 'Superset with Pushdowns (A)', 'https://www.youtube.com/watch?v=KwvJEXts2lg'),
+('Monday (Push)', 'Cable Triceps Rope Pushdown', '15 lb', '12-15', 3, '60s', '60-90s', 'Top of range twice → next increment', '2-0-1', '7', 'Superset with Cable Fly (A)', 'https://www.youtube.com/watch?v=_w-HpW70nSQ'),
+('Monday (Push)', 'Dumbbell Lateral Raise', '10 lb each', '12-15', 3, '45-60s', '90s', 'Top of range twice → +2.5 lb each', '2-0-1', '7', 'Keep slight bend in elbows', 'https://www.youtube.com/watch?v=WJm9zA2NY8E'),
+('Tuesday (Pull)', 'Kneeling Cable Lat Pulldown (use bar/rope)', '30 lb total', '8-12', 4, '75-90s', '90s', '12s for 2 sessions → next increment', '2-1-1', '7-8', 'Kneel facing tower; pull to chest', 'https://www.youtube.com/watch?v=nyTnXzDbAp8'),
+('Tuesday (Pull)', 'One-Arm Dumbbell Row', '25 lb', '10-12 each', 3, '75s', '60s', '12s for 2 sessions → +5 lb', '2-1-1', '7-8', 'Bench support', 'https://www.youtube.com/watch?v=ovTHP1MZbZI'),
+('Tuesday (Pull)', 'Seated/Low Cable Row (neutral)', '25 lb', '10-12', 3, '75s', '45-60s', 'Top range twice → next increment', '2-1-1', '7-8', 'Superset with Face Pulls (B)', 'https://www.youtube.com/watch?v=xjlz8lRXOOI'),
+('Tuesday (Pull)', 'Cable Face Pull', '15 lb', '12-15', 3, '45-60s', '60-90s', 'Top range twice → next increment', '2-1-1', '7', 'Superset with Low Row (B)', 'https://www.youtube.com/watch?v=eTCBSFlCJ_s'),
+('Tuesday (Pull)', 'Dumbbell Hammer Curl', '15 lb each', '10-12', 3, '60s', '90s', '12s for 2 sessions → +2.5–5 lb each', '2-0-1', '7', 'Elbows pinned', 'https://www.youtube.com/watch?v=zC3nLlEvin4'),
+('Wednesday (Legs)', 'Goblet Squat', '35 lb', '10-12', 4, '75-90s', '90s', '12s for 2 sessions → +5 lb', '3-1-1', '7-8', 'Chest up; full depth you control', 'https://www.youtube.com/watch?v=nfX7IFK9UNI'),
+('Wednesday (Legs)', 'Dumbbell Romanian Deadlift', '25 lb each', '8-12', 3, '90s', '60s', '12s twice → +5 lb each', '3-1-1', '7-8', 'Hinge; stretch hamstrings', 'https://www.youtube.com/watch?v=aa57T45iFSE'),
+('Wednesday (Legs)', 'Bulgarian Split Squat', '15 lb each', '8-10 per leg', 3, '75-90s', '45-60s', '10s twice → +5 lb each', '3-1-1', '8', 'Superset with Extensions (C)', 'https://www.youtube.com/watch?v=-4LVK1crLSw'),
+('Wednesday (Legs)', 'Leg Extension (bench attachment)', '25 lb', '12-15', 3, '45-60s', '45-60s', '15s twice → +5–10 lb', '2-1-1', '7', 'Superset with Leg Curl (D)', 'https://www.youtube.com/watch?v=Fa8oLc1PyFA'),
+('Wednesday (Legs)', 'Leg Curl (bench attachment)', '20 lb', '12-15', 3, '45-60s', '60-90s', '15s twice → +5–10 lb', '2-1-1', '7', 'Superset with Leg Extension (D)', 'https://www.youtube.com/watch?v=94OmAFqnmuU'),
+('Wednesday (Legs)', 'Standing Calf Raise (DBs)', '20 lb each', '12-15', 3, '45-60s', '90s', '15s twice → +5 lb each', '2-1-2', '7', 'Pause 1s at top', 'https://www.youtube.com/watch?v=wxwY7GXxL4k'),
+('Thursday (Upper + Core)', 'Incline Dumbbell Bench', '20 lb each', '8-12', 3, '75s', '60s', '12s twice → +5 lb each', '3-1-1', '7-8', 'Bench at ~30°', 'https://www.youtube.com/watch?v=VDU5bzE2qOE'),
+('Thursday (Upper + Core)', 'Single-Arm Cable Row (contralateral)', '20 lb', '10-12 each', 3, '60-75s', '45-60s', 'Top range twice → next increment', '2-1-1', '7-8', 'Superset with Lateral Raise (E)', 'https://www.youtube.com/watch?v=Gc5RAdNw6VY'),
+('Thursday (Upper + Core)', 'Dumbbell Lateral Raise', '10 lb each', '12-15', 3, '45-60s', '45-60s', 'Top range twice → +2.5 lb each', '2-0-1', '7', 'Superset with Cable Row (E)', 'https://www.youtube.com/watch?v=WJm9zA2NY8E'),
+('Thursday (Upper + Core)', 'Cable Woodchopper', '15 lb', '10-12 each side', 3, '45-60s', '45-60s', 'Top range twice → next increment', '2-1-1', '7', 'Rotate through hips', 'https://www.youtube.com/watch?v=he4IhLc1d5k'),
+('Thursday (Upper + Core)', 'Plank', 'Bodyweight', '45-60s hold', 3, '45-60s', '90s', 'Add 10s each week up to 90s, then add 10 lb plate on back', '—', '7', 'Keep glutes/abs tight', 'https://www.youtube.com/watch?v=A2b2EmIg0dA'),
+('Friday (Full-Body/Metabolic)', 'Dumbbell Thruster (squat to press)', '20 lb each', '8-12', 4, '60s', '60s', '12s twice → +2.5–5 lb each', '2-0-1', '8', 'Full-body power', 'https://www.youtube.com/watch?v=LA885CMp1yw'),
+('Friday (Full-Body/Metabolic)', 'Renegade Row (push-up position)', '15 lb each', '6-8 per arm', 3, '60-75s', '60s', '8s twice → +2.5 lb each', '2-1-1', '8', 'Hips square', 'https://www.youtube.com/watch?v=F68p7cJFtOI'),
+('Friday (Full-Body/Metabolic)', 'Kneeling Cable Lat Pulldown', '30 lb', '10-12', 3, '60-75s', '45-60s', 'Top range twice → next increment', '2-1-1', '7-8', '', 'https://www.youtube.com/watch?v=nyTnXzDbAp8'),
+('Friday (Full-Body/Metabolic)', 'Farmer''s Carry', '25 lb each', '40-60 meters', 5, '45-60s', '—', 'When 5 trips feel easy with solid posture, +5 lb each', '—', '8', 'Tall posture; tight core finisher', 'https://www.youtube.com/watch?v=z7E_YU9P1jU');
 
 -- Enable Row Level Security (RLS)
 ALTER TABLE exercises ENABLE ROW LEVEL SECURITY;

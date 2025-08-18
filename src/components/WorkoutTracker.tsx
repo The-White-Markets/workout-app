@@ -85,7 +85,6 @@ export default function WorkoutTracker() {
           <ExerciseCard 
             key={index} 
             exercise={exercise} 
-            date={currentDate}
           />
         ))}
       </div>

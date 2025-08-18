@@ -10,7 +10,8 @@ export const workoutData = [
     weight_increase_rule: "When you hit 12 reps on all sets for 2 sessions at RPE ≤8, add 5 lb per dumbbell",
     tempo: "3-1-1",
     rpe_target: "7-8",
-    notes: "Warm-up 2 light sets"
+    notes: "Warm-up 2 light sets",
+    tutorial_link: "https://www.youtube.com/watch?v=SHsUIZiNdeY"
   },
   {
     day: "Monday (Push)",
@@ -23,7 +24,8 @@ export const workoutData = [
     weight_increase_rule: "Top of range for 2 sessions → +2.5–5 lb each",
     tempo: "2-1-1",
     rpe_target: "7-8",
-    notes: ""
+    notes: "",
+    tutorial_link: "https://www.youtube.com/watch?v=GFblCmuEE18"
   },
   {
     day: "Monday (Push)",
@@ -36,7 +38,8 @@ export const workoutData = [
     weight_increase_rule: "Top of range twice → next cable increment",
     tempo: "2-1-2",
     rpe_target: "7",
-    notes: "Superset with Pushdowns (A)"
+    notes: "Superset with Pushdowns (A)",
+    tutorial_link: "https://www.youtube.com/watch?v=KwvJEXts2lg"
   },
   {
     day: "Monday (Push)",
@@ -49,7 +52,8 @@ export const workoutData = [
     weight_increase_rule: "Top of range twice → next increment",
     tempo: "2-0-1",
     rpe_target: "7",
-    notes: "Superset with Cable Fly (A)"
+    notes: "Superset with Cable Fly (A)",
+    tutorial_link: "https://www.youtube.com/watch?v=_w-HpW70nSQ"
   },
   {
     day: "Monday (Push)",
@@ -62,7 +66,8 @@ export const workoutData = [
     weight_increase_rule: "Top of range twice → +2.5 lb each",
     tempo: "2-0-1",
     rpe_target: "7",
-    notes: "Keep slight bend in elbows"
+    notes: "Keep slight bend in elbows",
+    tutorial_link: "https://www.youtube.com/watch?v=WJm9zA2NY8E"
   },
   {
     day: "Tuesday (Pull)",
@@ -75,7 +80,8 @@ export const workoutData = [
     weight_increase_rule: "12s for 2 sessions → next increment",
     tempo: "2-1-1",
     rpe_target: "7-8",
-    notes: "Kneel facing tower; pull to chest"
+    notes: "Kneel facing tower; pull to chest",
+    tutorial_link: "https://www.youtube.com/watch?v=nyTnXzDbAp8"
   },
   {
     day: "Tuesday (Pull)",
@@ -88,7 +94,8 @@ export const workoutData = [
     weight_increase_rule: "12s for 2 sessions → +5 lb",
     tempo: "2-1-1",
     rpe_target: "7-8",
-    notes: "Bench support"
+    notes: "Bench support",
+    tutorial_link: "https://www.youtube.com/watch?v=ovTHP1MZbZI"
   },
   {
     day: "Tuesday (Pull)",
@@ -101,7 +108,8 @@ export const workoutData = [
     weight_increase_rule: "Top range twice → next increment",
     tempo: "2-1-1",
     rpe_target: "7-8",
-    notes: "Superset with Face Pulls (B)"
+    notes: "Superset with Face Pulls (B)",
+    tutorial_link: "https://www.youtube.com/watch?v=xjlz8lRXOOI"
   },
   {
     day: "Tuesday (Pull)",
@@ -114,7 +122,8 @@ export const workoutData = [
     weight_increase_rule: "Top range twice → next increment",
     tempo: "2-1-1",
     rpe_target: "7",
-    notes: "Superset with Low Row (B)"
+    notes: "Superset with Low Row (B)",
+    tutorial_link: "https://www.youtube.com/watch?v=eTCBSFlCJ_s"
   },
   {
     day: "Tuesday (Pull)",
@@ -127,7 +136,8 @@ export const workoutData = [
     weight_increase_rule: "12s for 2 sessions → +2.5–5 lb each",
     tempo: "2-0-1",
     rpe_target: "7",
-    notes: "Elbows pinned"
+    notes: "Elbows pinned",
+    tutorial_link: "https://www.youtube.com/watch?v=zC3nLlEvin4"
   },
   {
     day: "Wednesday (Legs)",
@@ -140,7 +150,8 @@ export const workoutData = [
     weight_increase_rule: "12s for 2 sessions → +5 lb",
     tempo: "3-1-1",
     rpe_target: "7-8",
-    notes: "Chest up; full depth you control"
+    notes: "Chest up; full depth you control",
+    tutorial_link: "https://www.youtube.com/watch?v=nfX7IFK9UNI"
   },
   {
     day: "Wednesday (Legs)",
@@ -153,7 +164,8 @@ export const workoutData = [
     weight_increase_rule: "12s twice → +5 lb each",
     tempo: "3-1-1",
     rpe_target: "7-8",
-    notes: "Hinge; stretch hamstrings"
+    notes: "Hinge; stretch hamstrings",
+    tutorial_link: "https://www.youtube.com/watch?v=aa57T45iFSE"
   },
   {
     day: "Wednesday (Legs)",
@@ -166,7 +178,8 @@ export const workoutData = [
     weight_increase_rule: "10s twice → +5 lb each",
     tempo: "3-1-1",
     rpe_target: "8",
-    notes: "Superset with Extensions (C)"
+    notes: "Superset with Extensions (C)",
+    tutorial_link: "https://www.youtube.com/watch?v=-4LVK1crLSw"
   },
   {
     day: "Wednesday (Legs)",
@@ -179,7 +192,8 @@ export const workoutData = [
     weight_increase_rule: "15s twice → +5–10 lb",
     tempo: "2-1-1",
     rpe_target: "7",
-    notes: "Superset with Leg Curl (D)"
+    notes: "Superset with Leg Curl (D)",
+    tutorial_link: "https://www.youtube.com/watch?v=Fa8oLc1PyFA"
   },
   {
     day: "Wednesday (Legs)",
@@ -192,7 +206,8 @@ export const workoutData = [
     weight_increase_rule: "15s twice → +5–10 lb",
     tempo: "2-1-1",
     rpe_target: "7",
-    notes: "Superset with Leg Extension (D)"
+    notes: "Superset with Leg Extension (D)",
+    tutorial_link: "https://www.youtube.com/watch?v=94OmAFqnmuU"
   },
   {
     day: "Wednesday (Legs)",
@@ -205,7 +220,8 @@ export const workoutData = [
     weight_increase_rule: "15s twice → +5 lb each",
     tempo: "2-1-2",
     rpe_target: "7",
-    notes: "Pause 1s at top"
+    notes: "Pause 1s at top",
+    tutorial_link: "https://www.youtube.com/watch?v=wxwY7GXxL4k"
   },
   {
     day: "Thursday (Upper + Core)",
@@ -218,7 +234,8 @@ export const workoutData = [
     weight_increase_rule: "12s twice → +5 lb each",
     tempo: "3-1-1",
     rpe_target: "7-8",
-    notes: "Bench at ~30°"
+    notes: "Bench at ~30°",
+    tutorial_link: "https://www.youtube.com/watch?v=VDU5bzE2qOE"
   },
   {
     day: "Thursday (Upper + Core)",
@@ -231,7 +248,8 @@ export const workoutData = [
     weight_increase_rule: "Top range twice → next increment",
     tempo: "2-1-1",
     rpe_target: "7-8",
-    notes: "Superset with Lateral Raise (E)"
+    notes: "Superset with Lateral Raise (E)",
+    tutorial_link: "https://www.youtube.com/watch?v=Gc5RAdNw6VY"
   },
   {
     day: "Thursday (Upper + Core)",
@@ -244,7 +262,8 @@ export const workoutData = [
     weight_increase_rule: "Top range twice → +2.5 lb each",
     tempo: "2-0-1",
     rpe_target: "7",
-    notes: "Superset with Cable Row (E)"
+    notes: "Superset with Cable Row (E)",
+    tutorial_link: "https://www.youtube.com/watch?v=WJm9zA2NY8E"
   },
   {
     day: "Thursday (Upper + Core)",
@@ -257,7 +276,8 @@ export const workoutData = [
     weight_increase_rule: "Top range twice → next increment",
     tempo: "2-1-1",
     rpe_target: "7",
-    notes: "Rotate through hips"
+    notes: "Rotate through hips",
+    tutorial_link: "https://www.youtube.com/watch?v=he4IhLc1d5k"
   },
   {
     day: "Thursday (Upper + Core)",
@@ -270,7 +290,8 @@ export const workoutData = [
     weight_increase_rule: "Add 10s each week up to 90s, then add 10 lb plate on back",
     tempo: "—",
     rpe_target: "7",
-    notes: "Keep glutes/abs tight"
+    notes: "Keep glutes/abs tight",
+    tutorial_link: "https://www.youtube.com/watch?v=A2b2EmIg0dA"
   },
   {
     day: "Friday (Full-Body/Metabolic)",
@@ -283,7 +304,8 @@ export const workoutData = [
     weight_increase_rule: "12s twice → +2.5–5 lb each",
     tempo: "2-0-1",
     rpe_target: "8",
-    notes: "Full-body power"
+    notes: "Full-body power",
+    tutorial_link: "https://www.youtube.com/watch?v=LA885CMp1yw"
   },
   {
     day: "Friday (Full-Body/Metabolic)",
@@ -296,7 +318,8 @@ export const workoutData = [
     weight_increase_rule: "8s twice → +2.5 lb each",
     tempo: "2-1-1",
     rpe_target: "8",
-    notes: "Hips square"
+    notes: "Hips square",
+    tutorial_link: "https://www.youtube.com/watch?v=F68p7cJFtOI"
   },
   {
     day: "Friday (Full-Body/Metabolic)",
@@ -309,7 +332,8 @@ export const workoutData = [
     weight_increase_rule: "Top range twice → next increment",
     tempo: "2-1-1",
     rpe_target: "7-8",
-    notes: ""
+    notes: "",
+    tutorial_link: "https://www.youtube.com/watch?v=nyTnXzDbAp8"
   },
   {
     day: "Friday (Full-Body/Metabolic)",
@@ -322,6 +346,7 @@ export const workoutData = [
     weight_increase_rule: "When 5 trips feel easy with solid posture, +5 lb each",
     tempo: "—",
     rpe_target: "8",
-    notes: "Tall posture; tight core finisher"
+    notes: "Tall posture; tight core finisher",
+    tutorial_link: "https://www.youtube.com/watch?v=z7E_YU9P1jU"
   }
 ]

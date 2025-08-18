@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Target, Info } from 'lucide-react'
+import { Target, Info, Play } from 'lucide-react'
 
 interface Exercise {
   day: string
@@ -15,11 +15,11 @@ interface Exercise {
   tempo: string
   rpe_target: string
   notes: string
+  tutorial_link: string
 }
 
 interface ExerciseCardProps {
   exercise: Exercise
-  date: Date
 }
 
 export default function ExerciseCard({ exercise }: ExerciseCardProps) {
@@ -51,9 +51,22 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
       <div className="p-4 border-b border-gray-100">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <h4 className="text-lg font-semibold text-gray-900 mb-2">
-              {exercise.exercise_name}
-            </h4>
+            <div className="flex items-center space-x-3 mb-2">
+              <h4 className="text-lg font-semibold text-gray-900">
+                {exercise.exercise_name}
+              </h4>
+              {exercise.tutorial_link && (
+                <a
+                  href={exercise.tutorial_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1 px-2 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors"
+                >
+                  <Play className="w-3 h-3" />
+                  <span>Tutorial</span>
+                </a>
+              )}
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
                 <span className="text-gray-500">Target:</span>
@@ -102,6 +115,21 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
               <div className="md:col-span-2">
                 <span className="text-gray-500">Notes:</span>
                 <div className="font-medium text-sm">{exercise.notes}</div>
+              </div>
+            )}
+            {exercise.tutorial_link && (
+              <div className="md:col-span-2">
+                <span className="text-gray-500">Tutorial:</span>
+                <div className="font-medium text-sm">
+                  <a
+                    href={exercise.tutorial_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    Watch YouTube Tutorial
+                  </a>
+                </div>
               </div>
             )}
           </div>

@@ -19,6 +19,7 @@ export interface Exercise {
   tempo: string
   rpe_target: string
   notes: string
+  tutorial_link: string
   created_at: string
   updated_at: string
 }
