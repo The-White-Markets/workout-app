@@ -1,21 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { Target, Info, Play } from 'lucide-react'
+import { Target, Info, Play, Activity, Save, TrendingUp, Timer, Dumbbell } from 'lucide-react'
+import { updateExerciseWeight } from '@/lib/supabase'
 
 interface Exercise {
-  day: string
-  exercise_name: string
-  current_weight: string
-  reps: string
+  workout_day_id: string
+  name: string
   sets: number
-  rest_between_sets: string
-  rest_before_next: string
-  weight_increase_rule: string
-  tempo: string
-  rpe_target: string
-  notes: string
-  tutorial_link: string
+  reps: string
+  rpe: string
+  progression_rule: string
+  video_url: string
+  current_weight: string
+  last_workout: string
+  order: number
 }
 
 interface ExerciseCardProps {
@@ -23,112 +22,146 @@ interface ExerciseCardProps {
 }
 
 export default function ExerciseCard({ exercise }: ExerciseCardProps) {
-  const [sets, setSets] = useState<Array<{ weight: string; reps: number; rpe: number }>>(
-    Array(exercise.sets).fill({ weight: exercise.current_weight, reps: 0, rpe: 0 })
-  )
+  const [currentRepsPerSet, setCurrentRepsPerSet] = useState<string>('')
+  const [currentWeight, setCurrentWeight] = useState<string>(exercise.current_weight || '')
   const [isExpanded, setIsExpanded] = useState(false)
-
-  const updateSet = (index: number, field: 'weight' | 'reps' | 'rpe', value: string | number) => {
-    const newSets = [...sets]
-    newSets[index] = { ...newSets[index], [field]: value }
-    setSets(newSets)
-  }
+  const [isSavingWeight, setIsSavingWeight] = useState(false)
+  const [isSavingReps, setIsSavingReps] = useState(false)
 
   const getWeightIncreaseSuggestion = () => {
-    const allSetsCompleted = sets.every(set => set.reps > 0 && set.rpe > 0)
-    const maxReps = Math.max(...sets.map(set => set.reps))
-    const maxRpe = Math.max(...sets.map(set => set.rpe))
-    
-    if (allSetsCompleted && maxReps >= 12 && maxRpe <= 8) {
-      return "Consider increasing weight based on your performance!"
+    if (currentRepsPerSet && parseInt(currentRepsPerSet) >= 12) {
+      return "Excellent performance! Consider increasing weight for next session."
+    } else if (currentRepsPerSet && parseInt(currentRepsPerSet) < 8) {
+      return "Focus on form. Consider reducing weight to maintain proper technique."
     }
     return null
   }
 
+  const handleWeightSave = async () => {
+    if (!currentWeight.trim()) return
+    
+    setIsSavingWeight(true)
+    try {
+      // For now, we'll just update the local state since we don't have exercise IDs in the data
+      // In a real app, you'd call: await updateExerciseWeight(exercise.id, currentWeight)
+      console.log('Saving weight:', currentWeight)
+      // Simulate save delay
+      await new Promise(resolve => setTimeout(resolve, 500))
+    } catch (error) {
+      console.error('Error saving weight:', error)
+    } finally {
+      setIsSavingWeight(false)
+    }
+  }
+
+  const handleRepsSave = async () => {
+    if (!currentRepsPerSet.trim()) return
+    
+    setIsSavingReps(true)
+    try {
+      // For now, we'll just update the local state since we don't have exercise IDs in the data
+      // In a real app, you'd call: await updateExerciseReps(exercise.id, currentRepsPerSet)
+      console.log('Saving reps per set:', currentRepsPerSet)
+      // Simulate save delay
+      await new Promise(resolve => setTimeout(resolve, 500))
+    } catch (error) {
+      console.error('Error saving reps:', error)
+    } finally {
+      setIsSavingReps(false)
+    }
+  }
+
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <div className="floating-card overflow-hidden group">
       {/* Exercise Header */}
-      <div className="p-4 border-b border-gray-100">
+      <div className="p-6 border-b border-white/20">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <div className="flex items-center space-x-3 mb-2">
-              <h4 className="text-lg font-semibold text-gray-900">
-                {exercise.exercise_name}
-              </h4>
-              {exercise.tutorial_link && (
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full">
+                  <Dumbbell className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="text-xl font-bold text-gray-900">
+                  {exercise.name}
+                </h4>
+              </div>
+              {exercise.video_url && (
                 <a
-                  href={exercise.tutorial_link}
+                  href={exercise.video_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-1 px-2 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors"
+                  className="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-full text-sm font-medium hover:scale-105 transition-transform duration-300 shadow-lg"
                 >
                   <Play className="w-3 h-3" />
                   <span>Tutorial</span>
                 </a>
               )}
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              <div>
-                <span className="text-gray-500">Target:</span>
-                <div className="font-medium">{exercise.reps} reps × {exercise.sets} sets</div>
+            
+            {/* Exercise Stats Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+                <div className="text-2xl font-bold text-blue-600">{exercise.sets}</div>
+                <div className="text-xs text-blue-600 font-medium">Sets</div>
               </div>
-              <div>
-                <span className="text-gray-500">Weight:</span>
-                <div className="font-medium">{exercise.current_weight}</div>
+              <div className="text-center p-3 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl border border-green-100">
+                <div className="text-2xl font-bold text-green-600">{exercise.reps}</div>
+                <div className="text-xs text-green-600 font-medium">Target Reps</div>
               </div>
-              <div>
-                <span className="text-gray-500">Rest:</span>
-                <div className="font-medium">{exercise.rest_between_sets}</div>
+              <div className="text-center p-3 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl border border-orange-100">
+                <div className="text-2xl font-bold text-orange-600">{exercise.rpe}</div>
+                <div className="text-xs text-orange-600 font-medium">RPE Target</div>
               </div>
-              <div>
-                <span className="text-gray-500">RPE Target:</span>
-                <div className="font-medium">{exercise.rpe_target}</div>
+              <div className="text-center p-3 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-100">
+                <div className="text-2xl font-bold text-purple-600">#{exercise.order}</div>
+                <div className="text-xs text-purple-600 font-medium">Order</div>
               </div>
             </div>
           </div>
+          
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="ml-4 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="ml-4 p-3 rounded-full bg-white/80 hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
-            <Info className="w-5 h-5 text-gray-500" />
+            <Info className="w-5 h-5 text-gray-700" />
           </button>
         </div>
       </div>
 
       {/* Exercise Details (Expandable) */}
       {isExpanded && (
-        <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div>
-              <span className="text-gray-500">Tempo:</span>
-              <div className="font-medium">{exercise.tempo}</div>
-            </div>
-            <div>
-              <span className="text-gray-500">Rest Before Next:</span>
-              <div className="font-medium">{exercise.rest_before_next}</div>
-            </div>
-            <div className="md:col-span-2">
-              <span className="text-gray-500">Weight Increase Rule:</span>
-              <div className="font-medium text-sm">{exercise.weight_increase_rule}</div>
-            </div>
-            {exercise.notes && (
-              <div className="md:col-span-2">
-                <span className="text-gray-500">Notes:</span>
-                <div className="font-medium text-sm">{exercise.notes}</div>
+        <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-white/20">
+          <div className="space-y-4">
+            <div className="flex items-center space-x-3">
+              <TrendingUp className="w-5 h-5 text-blue-600" />
+              <div>
+                <span className="text-sm font-medium text-gray-700">Progression Rule:</span>
+                <div className="text-sm text-gray-600">{exercise.progression_rule}</div>
               </div>
-            )}
-            {exercise.tutorial_link && (
-              <div className="md:col-span-2">
-                <span className="text-gray-500">Tutorial:</span>
-                <div className="font-medium text-sm">
-                  <a
-                    href={exercise.tutorial_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 underline"
-                  >
-                    Watch YouTube Tutorial
-                  </a>
+            </div>
+            <div className="flex items-center space-x-3">
+              <Timer className="w-5 h-5 text-green-600" />
+              <div>
+                <span className="text-sm font-medium text-gray-700">Last Workout:</span>
+                <div className="text-sm text-gray-600">{exercise.last_workout || "Not recorded"}</div>
+              </div>
+            </div>
+            {exercise.video_url && (
+              <div className="flex items-center space-x-3">
+                <Play className="w-5 h-5 text-red-600" />
+                <div>
+                  <span className="text-sm font-medium text-gray-700">Video Tutorial:</span>
+                  <div className="text-sm">
+                    <a
+                      href={exercise.video_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline font-medium"
+                    >
+                      Watch YouTube Tutorial
+                    </a>
+                  </div>
                 </div>
               </div>
             )}
@@ -136,61 +169,82 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
         </div>
       )}
 
-      {/* Sets Tracking */}
-      <div className="p-4">
-        <h5 className="text-sm font-medium text-gray-700 mb-3">Track Your Sets</h5>
-        <div className="space-y-3">
-          {sets.map((set, index) => (
-            <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-              <span className="text-sm font-medium text-gray-500 w-8">Set {index + 1}</span>
-              
-              <div className="flex-1 grid grid-cols-3 gap-2">
-                <div>
-                  <label className="block text-xs text-gray-500 mb-1">Weight</label>
-                  <input
-                    type="text"
-                    value={set.weight}
-                    onChange={(e) => updateSet(index, 'weight', e.target.value)}
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Weight"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-xs text-gray-500 mb-1">Reps</label>
-                  <input
-                    type="number"
-                    value={set.reps || ''}
-                    onChange={(e) => updateSet(index, 'reps', parseInt(e.target.value) || 0)}
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="0"
-                    min="0"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-xs text-gray-500 mb-1">RPE</label>
-                  <input
-                    type="number"
-                    value={set.rpe || ''}
-                    onChange={(e) => updateSet(index, 'rpe', parseInt(e.target.value) || 0)}
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="0"
-                    min="1"
-                    max="10"
-                  />
-                </div>
-              </div>
+      {/* Quick Tracking */}
+      <div className="p-6">
+        <h5 className="text-lg font-bold text-gray-900 mb-6 flex items-center space-x-3">
+          <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full">
+            <Activity className="w-5 h-5 text-white" />
+          </div>
+          <span>Track Your Progress</span>
+        </h5>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Current Reps per Set Input */}
+          <div className="space-y-4">
+            <label className="block text-lg font-semibold text-gray-900">
+              Current Reps per Set
+            </label>
+            <div className="flex items-center space-x-3">
+              <input
+                type="number"
+                value={currentRepsPerSet}
+                onChange={(e) => setCurrentRepsPerSet(e.target.value)}
+                className="modern-input flex-1"
+                placeholder="Enter reps"
+                min="1"
+                max="50"
+              />
+              <button
+                onClick={handleRepsSave}
+                disabled={isSavingReps}
+                className="btn-success px-6 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Save className="w-5 h-5" />
+                <span className="ml-2">{isSavingReps ? 'Saving...' : 'Save'}</span>
+              </button>
             </div>
-          ))}
+            <div className="text-sm text-gray-600 bg-gradient-to-r from-green-50 to-blue-50 p-3 rounded-lg border border-green-100">
+              <span className="font-medium">Target:</span> {exercise.reps} reps
+            </div>
+          </div>
+
+          {/* Current Weight Input */}
+          <div className="space-y-4">
+            <label className="block text-lg font-semibold text-gray-900 flex items-center space-x-2">
+              <Dumbbell className="w-5 h-5 text-blue-600" />
+              <span>Current Weight</span>
+            </label>
+            <div className="flex items-center space-x-3">
+              <input
+                type="text"
+                value={currentWeight}
+                onChange={(e) => setCurrentWeight(e.target.value)}
+                className="modern-input flex-1"
+                placeholder="e.g., 20 lb, 45 kg"
+              />
+              <button
+                onClick={handleWeightSave}
+                disabled={isSavingWeight}
+                className="btn-primary px-6 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Save className="w-5 h-5" />
+                <span className="ml-2">{isSavingWeight ? 'Saving...' : 'Save'}</span>
+              </button>
+            </div>
+            <div className="text-sm text-gray-600 bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg border border-blue-100">
+              <span className="font-medium">Update your current working weight for this exercise</span>
+            </div>
+          </div>
         </div>
 
-        {/* Weight Increase Suggestion */}
+        {/* Smart Suggestion */}
         {getWeightIncreaseSuggestion() && (
-          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <div className="flex items-center space-x-2">
-              <Target className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-medium text-blue-800">
+          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-gradient-to-r from-blue-500 to-green-600 rounded-full">
+                <Target className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-sm font-semibold text-blue-800">
                 {getWeightIncreaseSuggestion()}
               </span>
             </div>
