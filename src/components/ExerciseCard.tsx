@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { Target, Info, Play, Activity, Save, TrendingUp, Timer, Dumbbell } from 'lucide-react'
-import { updateExerciseWeight } from '@/lib/supabase'
 
 interface Exercise {
   workout_day_id: string

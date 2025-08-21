@@ -67,7 +67,7 @@ export default function WorkoutTracker() {
               <Calendar className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Today's Workout</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Today&apos;s Workout</h2>
               <p className="text-gray-600 text-lg">{formatDate(currentDate)}</p>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function WorkoutTracker() {
       <div className={`glass-card p-6 max-w-6xl mx-auto slide-in-left ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Choose Your Workout</h3>
-          <p className="text-gray-600">Select the perfect workout for today's goals</p>
+          <p className="text-gray-600">Select the perfect workout for today&apos;s goals</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {workoutDays.map((day, index) => (
