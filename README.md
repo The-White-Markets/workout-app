@@ -21,7 +21,7 @@ A mobile-first workout tracking application built with Next.js, TypeScript, and 
 ## Setup Instructions
 
 ### 1. Clone and Install Dependencies
-
+hello
 ```bash
 git clone <your-repo-url>
 cd workout-app
